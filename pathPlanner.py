@@ -84,7 +84,7 @@ def do_a_star(grid, start, end, display_message):
     g_score = {start: 0}
     f_score = {start: euclid(start, end)}
     open_list.push((f_score[start], start))  # Push initial node
-    open_dict = {start: euclid(start, end)}  # Dictionary for lookup
+    open_set = {start}  # Dictionary for lookup
 
     while open_list:
         # Get node with the lowest f-score
@@ -93,9 +93,10 @@ def do_a_star(grid, start, end, display_message):
         if current == end:
             return reconstruct_path(current)
         
-        open_dict.pop(current)
+        open_set.remove(current)
         closed_list.add(current)
         
+        tentative_g = g_score[current] + 1
         for d in directions:
             neighbor = (current[0] + d[0], current[1] + d[1])
 
@@ -104,13 +105,10 @@ def do_a_star(grid, start, end, display_message):
             
             # Check bounds and if it's walkable
             if 0 <= neighbor[0] < len(grid) and 0 <= neighbor[1] < len(grid[0]) and grid[neighbor[0]][neighbor[1]] == 1:
-                tentative_g = g_score[current] + 1
                 tentative_f = tentative_g + euclid(neighbor, end)
-
-                if neighbor not in open_dict:
+                if neighbor not in open_set:
                     open_list.push((tentative_f, neighbor))
-                    open_dict[neighbor] = tentative_f
-                    parents[neighbor] = current
+                    open_set.add(neighbor)
                 elif tentative_g >= g_score[neighbor]:
                     continue
 
