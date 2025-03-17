@@ -33,6 +33,7 @@ This project implements the A\* path planning algorithm for a generalized roboti
 
 ````
 3. Run the project:
+```bash
 python gui.py
 ````
 
