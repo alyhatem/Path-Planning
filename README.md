@@ -30,8 +30,6 @@ This project implements the A\* path planning algorithm for a generalized roboti
    source myenv/bin/activate
    pip install PyQt5
    ```
-
-````
 3. Run the project:
 ```bash
 python gui.py
